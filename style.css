@@ -50,11 +50,12 @@ h1 {
   background: #fff0f5;
   padding: 15px;
   border-radius: 12px;
-  height: 600px; /* match photo height */
+  height: 600px;
   overflow-y: auto;
   line-height: 1.5em;
-  white-space: pre-line;
+  white-space: pre-line;  /* <- ye sahi hai */
 }
+
 
 
 .photo-wrapper {
