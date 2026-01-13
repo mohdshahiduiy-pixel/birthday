@@ -59,11 +59,11 @@ h1 {
 }
 
 .photo-card {
-  width: 100%;
-  height: 260px;
-  object-fit: cover; /* keeps aspect ratio & crops if needed */
+  width: 300px;  /* exact screenshot width */
+  height: 600px; /* exact screenshot height */
   border-radius: 15px;
 }
+
 
 /* Heart on photo */
 .photo-heart {
