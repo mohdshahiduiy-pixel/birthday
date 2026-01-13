@@ -74,11 +74,16 @@ button:hover {
 }
 
 .letter {
-  margin-top: 15px;
-  font-size: 17px;
-  line-height: 1.6;
+  display: none;
+  max-height: 400px;       /* fixed height for the letter box */
+  overflow-y: auto;        /* scroll inside the box */
+  padding: 15px;
+  background: #fffaf0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  line-height: 1.5;
+  font-size: 1.1rem;
   color: #333;
-  min-height: 140px;
 }
 
 /* Floating hearts */
