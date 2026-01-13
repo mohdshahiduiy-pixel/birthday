@@ -12,13 +12,8 @@ const canvas = document.getElementById("fireworks");
 const ctx = canvas.getContext("2d");
 
 // ===========================
-// INITIAL SETUP
+// CANVAS RESIZE
 // ===========================
-let i = 0; // typeWriter counter
-let heartsInterval;
-let fireworksInterval;
-
-// Make canvas full screen
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -29,82 +24,49 @@ resizeCanvas();
 // ===========================
 // CONFESSION TEXT
 // ===========================
-
-// ===========================
-// CONFESSION TEXT
-// ===========================
-
-const confession = `
-Dear Riya, 🌸
+const confession = `Dear Riya, 🌸
 
 I don’t really know yet what I feel in my heart for you 💛,
-or what you think about me — and I understand that you might see me as just a friend, nothing more than that 🤍.
-I respect that completely, and I don’t want to assume anything that isn’t there.
+or what you think about me — and I understand that you might see me as just a friend 🤍.
 
-But somewhere between 26th December 📅, when we met and talked,
-and 27th December, when our conversations felt indirect yet full of feeling,
-something quietly changed for me.
-It wasn’t loud or sudden.
-It wasn’t dramatic.
-It was subtle — almost unnoticeable at first — but it stayed with me 🦋.
+But between 26th and 27th December, something quietly changed for me 🦋.
 
-That day, when you were crying 😢,
-I couldn’t ignore it.
-I couldn’t pretend not to see it.
-I couldn’t just walk away or act normal.
-Seeing you like that affected me more than I expected.
-I asked if you were okay because I genuinely wanted to know,
-not because I felt I should.
-We talked… 💬
-and after that, something felt different —
-like a door had opened slowly, without either of us forcing it ✨.
+Seeing you cry affected me more than I expected 😢.
+Talking to you felt different — easy and honest ✨.
 
-After that, so many small things started happening naturally 🌱 —
-things that might seem ordinary on their own,
-but together felt meaningful.
-Sitting together in the library 📚,
-talking more than before,
-sharing quiet moments without realizing how time was passing.
-
-Even small details started standing out to me —
-like noticing that we were both born on the same day, a Wednesday 🗓️,
-or how you started coming into my mind unexpectedly.
+Small moments started meaning more:
+sitting together, quiet conversations, shared smiles 📚💫.
 
 On New Year’s Day 🎆,
-when we wore almost the same colour clothes 👕👗,
-I couldn’t help but smile 😊.
-You looked genuinely cute —
-honestly, you reminded me of Santa Claus 🎅 in the best way possible.
+your outfit made you look adorable —
+you honestly reminded me of Santa 🎅😊.
 
-Somewhere in all these little moments —
-the conversations,
-the silences,
-the coincidences,
-the comfort —
-it feels like a bond has been forming on its own 🌷.
+Somewhere in all this,
+I started thinking of you as more than a friend 💛.
 
-I feel like I think of you as more than a friend 💛.
 If that’s possible, I’d be grateful 🌸.
-And if it’s not, that’s completely okay too 🤍.
+If not, that’s okay too 🤍.
 
-What we already share is still beautiful in its own way ✨,
-and I truly value it — deeply and sincerely 💖.
+What we already share is beautiful,
+and I value it deeply 💖.
 `;
 
-
-
 // ===========================
-// AUTOPLAY MUSIC SAFELY
+// MUSIC AUTOPLAY
 // ===========================
-window.addEventListener("click", () => {
-  if (birthdayMusic.paused) birthdayMusic.play().catch(() => {});
-}, { once: true });
+window.addEventListener(
+  "click",
+  () => {
+    if (birthdayMusic && birthdayMusic.paused) {
+      birthdayMusic.play().catch(() => {});
+    }
+  },
+  { once: true }
+);
 
 // ===========================
 // BUTTON EVENTS
 // ===========================
-
-// Surprise button
 surpriseBtn.addEventListener("click", () => {
   surpriseBtn.style.display = "none";
   confessBtn.style.display = "inline-block";
@@ -113,41 +75,40 @@ surpriseBtn.addEventListener("click", () => {
   playRomanticMusic();
 });
 
-// Confess button
 confessBtn.addEventListener("click", () => {
   confessBtn.style.display = "none";
   photo.style.display = "block";
-  typeWriter(confession);
+  letterBox.innerHTML = "";
+  typeWriter(confession, 0);
 });
 
 // ===========================
-// TYPEWRITER EFFECT
+// TYPEWRITER
 // ===========================
-function typeWriter(text) {
-  if (i < text.length) {
-    letterBox.innerHTML += text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
-    i++;
-    letterBox.scrollTop = letterBox.scrollHeight; // auto scroll
-    setTimeout(() => typeWriter(text), 40);
+function typeWriter(text, index) {
+  if (index < text.length) {
+    letterBox.innerHTML +=
+      text.charAt(index) === "\n" ? "<br>" : text.charAt(index);
+    letterBox.scrollTop = letterBox.scrollHeight;
+    setTimeout(() => typeWriter(text, index + 1), 40);
   }
 }
 
 // ===========================
-// FLOATING HEARTS
+// HEARTS
 // ===========================
 function startHearts() {
-  heartsInterval = setInterval(() => {
+  setInterval(() => {
     const heart = document.createElement("span");
-    heart.innerText = "❤️";
-    heart.style.position = "fixed";
+    heart.textContent = "❤️";
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.top = "-2em";
-    heart.style.fontSize = (16 + Math.random() * 24) + "px";
-    heart.style.animation = `floatUp ${(4 + Math.random() * 3)}s linear forwards`;
+    heart.style.top = "-20px";
+    heart.style.fontSize = 16 + Math.random() * 24 + "px";
+    heart.style.position = "fixed";
+    heart.style.animation = "floatUp 6s linear forwards";
     heartsContainer.appendChild(heart);
 
-    // Remove after animation
-    setTimeout(() => heart.remove(), 7000);
+    setTimeout(() => heart.remove(), 6000);
   }, 400);
 }
 
@@ -155,39 +116,48 @@ function startHearts() {
 // FIREWORKS
 // ===========================
 function startFireworks() {
-  fireworksInterval = setInterval(() => {
-    // clear previous fireworks slightly for fade effect
+  setInterval(() => {
     ctx.fillStyle = "rgba(0,0,0,0.2)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const x = Math.random() * canvas.width;
-    const y = Math.random() * canvas.height / 2;
+    const y = Math.random() * canvas.height * 0.5;
 
-    for (let j = 0; j < 30; j++) {
+    for (let i = 0; i < 25; i++) {
       ctx.beginPath();
-      ctx.arc(x + Math.random() * 30 - 15, y + Math.random() * 30 - 15, Math.random() * 2 + 1, 0, Math.PI * 2);
-      ctx.fillStyle = `hsl(${Math.random() * 360}, 100%, 60%)`;
+      ctx.arc(
+        x + Math.random() * 30 - 15,
+        y + Math.random() * 30 - 15,
+        Math.random() * 2 + 1,
+        0,
+        Math.PI * 2
+      );
+      ctx.fillStyle = `hsl(${Math.random() * 360},100%,60%)`;
       ctx.fill();
     }
-  }, 100);
+  }, 120);
 }
 
 // ===========================
-// PLAY ROMANTIC MUSIC
+// MUSIC SWITCH
 // ===========================
 function playRomanticMusic() {
-  birthdayMusic.pause();
-  birthdayMusic.currentTime = 0;
-  romanticMusic.play().catch(() => {});
+  if (birthdayMusic) {
+    birthdayMusic.pause();
+    birthdayMusic.currentTime = 0;
+  }
+  if (romanticMusic) {
+    romanticMusic.play().catch(() => {});
+  }
 }
 
 // ===========================
-// CSS ANIMATION (inject if not present)
+// HEART ANIMATION
 // ===========================
-const style = document.createElement('style');
+const style = document.createElement("style");
 style.innerHTML = `
 @keyframes floatUp {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-100vh); opacity: 0; }
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-100vh); opacity: 0; }
 }`;
 document.head.appendChild(style);
