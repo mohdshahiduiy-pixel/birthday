@@ -1,18 +1,34 @@
+// ===========================
+// ELEMENTS
+// ===========================
 const birthdayMusic = document.getElementById("birthdayMusic");
 const romanticMusic = document.getElementById("romanticMusic");
 const letterBox = document.getElementById("letter");
 const photo = document.getElementById("photo");
 const surpriseBtn = document.getElementById("surpriseBtn");
 const confessBtn = document.getElementById("confessBtn");
+const heartsContainer = document.getElementById("floatingHearts");
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
 
-// counter for typeWriter
-let i = 0;
+// ===========================
+// INITIAL SETUP
+// ===========================
+let i = 0; // typeWriter counter
+let heartsInterval;
+let fireworksInterval;
 
-/* Try autoplay safely */
-window.addEventListener("click", () => {
-  if (birthdayMusic.paused) birthdayMusic.play().catch(()=>{});
-}, { once: true });
+// Make canvas full screen
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
 
+// ===========================
+// CONFESSION TEXT
+// ===========================
 const confession = `
 Dear Riya, 🌸
 
@@ -26,8 +42,7 @@ and suddenly my day, my thoughts, my feelings start changing in ways I didn’t 
 On 26th December, when you were crying 😢, I couldn’t just look away.
 I asked if you were okay, we talked 💬, and from that moment, so many little moments started to matter 🌟.
 Sitting together in the library 📚, noticing we were both born on Wednesday 🗓️,
-or how on New Year’s Day we wore almost the same colour clothes 👕👗 —
-it all felt like tiny coincidences, but somehow, they all added up to something magical ✨💫.
+or how on New Year’s Day we wore almost the same colour clothes 👕👗 — it all felt like tiny coincidences, but somehow, they all added up to something magical ✨💫.
 
 Even the way you feel comfortable with me 🤗,
 the way we can be touchy without it ever feeling awkward 💞,
@@ -44,69 +59,101 @@ What we already share is still beautiful in its own way 🌷✨,
 and I truly value it 💖.
 `;
 
-/* Surprise button behavior */
+// ===========================
+// AUTOPLAY MUSIC SAFELY
+// ===========================
+window.addEventListener("click", () => {
+  if (birthdayMusic.paused) birthdayMusic.play().catch(() => {});
+}, { once: true });
+
+// ===========================
+// BUTTON EVENTS
+// ===========================
+
+// Surprise button
 surpriseBtn.addEventListener("click", () => {
   surpriseBtn.style.display = "none";
-  confessBtn.style.display = "inline-block"; // Show confess button
+  confessBtn.style.display = "inline-block";
   startHearts();
   startFireworks();
   playRomanticMusic();
 });
 
-/* Confess button behavior */
+// Confess button
 confessBtn.addEventListener("click", () => {
   confessBtn.style.display = "none";
-  photo.style.display = "block"; // show photo
+  photo.style.display = "block";
   typeWriter(confession);
 });
 
-/* Typing effect with auto-scroll */
+// ===========================
+// TYPEWRITER EFFECT
+// ===========================
 function typeWriter(text) {
   if (i < text.length) {
     letterBox.innerHTML += text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
     i++;
-
-    // Scroll inside the letter box
-    letterBox.scrollTop = letterBox.scrollHeight;
-
+    letterBox.scrollTop = letterBox.scrollHeight; // auto scroll
     setTimeout(() => typeWriter(text), 40);
   }
 }
 
-/* Floating hearts */
+// ===========================
+// FLOATING HEARTS
+// ===========================
 function startHearts() {
-  const container = document.getElementById("floatingHearts");
-  setInterval(() => {
-    const h = document.createElement("span");
-    h.innerText = "❤️";
-    h.style.left = Math.random() * 100 + "vw";
-    h.style.animationDuration = (4 + Math.random() * 3) + "s";
-    container.appendChild(h);
-    setTimeout(() => h.remove(), 7000);
+  heartsInterval = setInterval(() => {
+    const heart = document.createElement("span");
+    heart.innerText = "❤️";
+    heart.style.position = "fixed";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.top = "-2em";
+    heart.style.fontSize = (16 + Math.random() * 24) + "px";
+    heart.style.animation = `floatUp ${(4 + Math.random() * 3)}s linear forwards`;
+    heartsContainer.appendChild(heart);
+
+    // Remove after animation
+    setTimeout(() => heart.remove(), 7000);
   }, 400);
 }
 
-/* Fireworks (simple + light) */
-const canvas = document.getElementById("fireworks");
-const ctx = canvas.getContext("2d");
-canvas.width = innerWidth;
-canvas.height = innerHeight;
-
+// ===========================
+// FIREWORKS
+// ===========================
 function startFireworks() {
-  setInterval(() => {
+  fireworksInterval = setInterval(() => {
+    // clear previous fireworks slightly for fade effect
+    ctx.fillStyle = "rgba(0,0,0,0.2)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     const x = Math.random() * canvas.width;
     const y = Math.random() * canvas.height / 2;
-    for (let i = 0; i < 30; i++) {
+
+    for (let j = 0; j < 30; j++) {
       ctx.beginPath();
-      ctx.arc(x, y, Math.random() * 2, 0, Math.PI * 2);
-      ctx.fillStyle = `hsl(${Math.random()*360},100%,60%)`;
+      ctx.arc(x + Math.random() * 30 - 15, y + Math.random() * 30 - 15, Math.random() * 2 + 1, 0, Math.PI * 2);
+      ctx.fillStyle = `hsl(${Math.random() * 360}, 100%, 60%)`;
       ctx.fill();
     }
-  }, 600);
+  }, 100);
 }
 
+// ===========================
+// PLAY ROMANTIC MUSIC
+// ===========================
 function playRomanticMusic() {
   birthdayMusic.pause();
   birthdayMusic.currentTime = 0;
-  romanticMusic.play().catch(()=>{});
+  romanticMusic.play().catch(() => {});
 }
+
+// ===========================
+// CSS ANIMATION (inject if not present)
+// ===========================
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-100vh); opacity: 0; }
+}`;
+document.head.appendChild(style);
