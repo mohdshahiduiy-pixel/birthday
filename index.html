@@ -4,11 +4,14 @@
   <meta charset="UTF-8">
   <title>Happy Birthday Riya 🎉</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
 
-  <!-- Fireworks -->
+  <!-- Fireworks Canvas -->
   <canvas id="fireworks"></canvas>
 
   <!-- Music -->
@@ -23,6 +26,9 @@
   <!-- Floating Hearts -->
   <div id="floatingHearts"></div>
 
+  <!-- Balloons -->
+  <div class="balloons">🎈 🎈 🎈 🎈 🎈</div>
+
   <!-- Card -->
   <div class="card">
     <h1>🎉 Happy Birthday 🎉</h1>
@@ -32,18 +38,22 @@
     <h2>14 January 🎂</h2>
 
     <p>
-      Wishing you a day full of happiness,<br>
-      smiles, and beautiful moments 💐
+      Wishing you a day full of happiness, smiles,<br>
+      and beautiful moments 💐
     </p>
 
+    <!-- Surprise Buttons -->
     <button id="surpriseBtn">A Little Surprise 🎁</button>
-    <button id="confessBtn" style="display:none;">Special Words 💌</button>
+    <button id="confessBtn">Special Words 💌</button>
 
-    <img id="photo" src="riya-photo.jpeg" alt="Riya">
+    <!-- Photo -->
+    <img id="photo" src="riya-photo.jpeg" alt="Riya" style="display:none; width: 250px; border-radius: 15px; margin-top: 15px;" />
 
+    <!-- Letter -->
     <div id="letter" class="letter"></div>
   </div>
 
+  <!-- JS -->
   <script src="script.js"></script>
 </body>
 </html>
