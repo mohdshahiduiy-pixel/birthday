@@ -12,14 +12,12 @@ body {
 
 .card {
   max-width: 450px;
-  margin: 5vh auto;
+  margin: 80px auto;
   padding: 25px;
   background: rgba(255,255,255,0.9);
   border-radius: 20px;
   text-align: center;
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  position: relative;
-  z-index: 5;
 }
 
 h1 {
@@ -42,14 +40,14 @@ p.name {
 
 .letter {
   margin-top: 15px;
-  max-height: 45vh;
+  height: 200px;
   overflow-y: auto;
-  padding: 15px;
+  padding: 10px;
   background: #fff0f5;
   border-radius: 12px;
   text-align: left;
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 1em;
+  line-height: 1.4em;
 }
 
 button {
@@ -99,6 +97,6 @@ canvas#fireworks {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
 }
