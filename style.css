@@ -1,79 +1,98 @@
-/* ===========================
-   BODY & CARD STYLING
-=========================== */
 body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: #ffe4e1; /* soft pink */
+  background: #ffe4e1;
   overflow-x: hidden;
-  position: relative;
 }
 
+/* CARD */
 .card {
-  position: relative;
-  z-index: 10;
-  max-width: 90%;
+  max-width: 95%;
   margin: 40px auto;
   padding: 25px;
   background: rgba(255,255,255,0.95);
   border-radius: 20px;
-  text-align: center;
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 5;
 }
 
 h1 {
-  font-size: 2em;
-  margin-bottom: 10px;
+  text-align: center;
   color: #ff69b4;
+  margin-bottom: 5px;
 }
 
-h2 {
+.name {
+  text-align: center;
   font-size: 1.5em;
-  margin: 10px 0;
-  color: #ff1493;
-}
-
-p.name {
-  font-size: 1.3em;
   font-weight: bold;
   color: #ff4500;
+  margin-bottom: 15px;
 }
 
+/* SPLIT LAYOUT */
+.content {
+  display: flex;
+  gap: 15px;
+}
+
+/* LETTER */
 .letter {
-  position: relative;
-  z-index: 11;
-  margin-top: 15px;
-  height: 150px;
-  overflow-y: auto;
-  padding: 10px;
-  background: rgba(255, 240, 245, 0.9);
+  flex: 1;
+  background: #fff0f5;
+  padding: 15px;
   border-radius: 12px;
-  text-align: left;
-  font-size: 1em;
-  line-height: 1.4em;
-  scrollbar-width: thin;
-  scrollbar-color: #ff69b4 #fff0f5;
+  height: 260px;
+  overflow-y: auto;
+  line-height: 1.5em;
 }
 
-.letter::-webkit-scrollbar {
-  width: 6px;
+/* PHOTO */
+.photo-wrapper {
+  flex: 1;
+  position: relative;
 }
 
-.letter::-webkit-scrollbar-thumb {
-  background-color: #ff69b4;
-  border-radius: 3px;
+.photo-card {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* HEART ON PHOTO */
+.photo-heart {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 2em;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* BUTTONS */
+.buttons {
+  text-align: center;
+  margin-top: 15px;
 }
 
 button {
-  margin: 10px 5px;
-  padding: 10px 15px;
-  font-size: 1em;
+  margin: 0 5px;
+  padding: 10px 18px;
   border: none;
   border-radius: 8px;
-  cursor: pointer;
   background: #ff69b4;
   color: white;
+  font-size: 1em;
+  cursor: pointer;
   transition: 0.3s;
 }
 
@@ -81,58 +100,34 @@ button:hover {
   background: #ff1493;
 }
 
-img.photo-card {
-  display: block;
-  margin: 15px auto;
-  max-width: 100%;
-  height: auto;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-/* ===========================
-   FLOATING HEARTS
-=========================== */
+/* FLOATING HEARTS */
 #floatingHearts span {
   position: fixed;
-  pointer-events: none;
-  z-index: 9999;
   font-size: 1.5em;
-  will-change: transform;
-}
-
-/* ===========================
-   BALLOONS
-=========================== */
-.balloons {
-  text-align: center;
-  font-size: 2em;
-  margin-top: 20px;
   pointer-events: none;
-  will-change: transform;
+  z-index: 999;
 }
 
-/* ===========================
-   CANVAS (Fireworks)
-=========================== */
-canvas#fireworks {
+/* FIREWORKS */
+canvas {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0; /* behind everything */
   pointer-events: none;
+  z-index: 0;
 }
 
-/* ===========================
-   MEDIA QUERIES (Mobile)
-=========================== */
-@media (max-width: 480px) {
-  .card { padding: 20px; }
-  h1 { font-size: 1.8em; }
-  h2 { font-size: 1.3em; }
-  p.name { font-size: 1.1em; }
-  .letter { height: 120px; font-size: 0.95em; }
-  .balloons { font-size: 1.5em; }
+/* MOBILE */
+@media (max-width: 600px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .letter,
+  .photo-card {
+    height: auto;
+  }
 }
+
