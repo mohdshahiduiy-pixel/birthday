@@ -5,8 +5,8 @@ const photo = document.getElementById("photo");
 const surpriseBtn = document.getElementById("surpriseBtn");
 const confessBtn = document.getElementById("confessBtn");
 
-// Add this line:
-let i = 0; // counter for typeWriter
+// counter for typeWriter
+let i = 0;
 
 /* Try autoplay safely */
 window.addEventListener("click", () => {
@@ -56,11 +56,11 @@ surpriseBtn.addEventListener("click", () => {
 /* Confess button behavior */
 confessBtn.addEventListener("click", () => {
   confessBtn.style.display = "none";
-  photo.style.display = "block";
+  photo.style.display = "block"; // show photo
   typeWriter(confession);
 });
 
-/* Typing effect */
+/* Typing effect with auto-scroll */
 function typeWriter(text) {
   if (i < text.length) {
     letterBox.innerHTML += text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
@@ -106,9 +106,7 @@ function startFireworks() {
 }
 
 function playRomanticMusic() {
-  if (!romanticMusic.playing) {
-    birthdayMusic.pause();
-    birthdayMusic.currentTime = 0;
-    romanticMusic.play();
-  }
+  birthdayMusic.pause();
+  birthdayMusic.currentTime = 0;
+  romanticMusic.play().catch(()=>{});
 }
