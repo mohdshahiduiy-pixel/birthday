@@ -11,10 +11,10 @@ body {
 }
 
 .card {
-  max-width: 450px;
-  margin: 80px auto;
+  max-width: 90%;
+  margin: 40px auto;
   padding: 25px;
-  background: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.95);
   border-radius: 20px;
   text-align: center;
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
@@ -40,7 +40,7 @@ p.name {
 
 .letter {
   margin-top: 15px;
-  height: 200px;
+  height: 150px;
   overflow-y: auto;
   padding: 10px;
   background: #fff0f5;
@@ -48,6 +48,17 @@ p.name {
   text-align: left;
   font-size: 1em;
   line-height: 1.4em;
+  scrollbar-width: thin;
+  scrollbar-color: #ff69b4 #fff0f5;
+}
+
+.letter::-webkit-scrollbar {
+  width: 6px;
+}
+
+.letter::-webkit-scrollbar-thumb {
+  background-color: #ff69b4;
+  border-radius: 3px;
 }
 
 button {
@@ -69,6 +80,8 @@ button:hover {
 img {
   display: block;
   margin: 15px auto;
+  max-width: 90%;
+  height: auto;
 }
 
 /* ===========================
@@ -78,6 +91,8 @@ img {
   position: fixed;
   pointer-events: none;
   z-index: 9999;
+  will-change: transform;
+  font-size: 1.5em;
 }
 
 /* ===========================
@@ -88,6 +103,7 @@ img {
   font-size: 2em;
   margin-top: 20px;
   pointer-events: none;
+  will-change: transform;
 }
 
 /* ===========================
@@ -100,7 +116,10 @@ canvas#fireworks {
   z-index: 1;
   pointer-events: none;
 }
-/* Front page avatar */
+
+/* ===========================
+   AVATAR & HEART
+=========================== */
 .avatar-front {
   width: 50px;
   height: 50px;
@@ -110,10 +129,48 @@ canvas#fireworks {
   border: 2px solid #ff1493; /* optional pink border */
 }
 
-/* Red heart next to avatar */
 .heart-front {
   font-size: 1.5em;
   color: red;
   margin-left: 6px;
   vertical-align: middle;
+}
+
+/* ===========================
+   MEDIA QUERIES (MOBILE RESPONSIVE)
+=========================== */
+@media (max-width: 480px) {
+  .card {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.8em;
+  }
+
+  h2 {
+    font-size: 1.3em;
+  }
+
+  p.name {
+    font-size: 1.1em;
+  }
+
+  .letter {
+    height: 120px;
+    font-size: 0.95em;
+  }
+
+  .avatar-front {
+    width: 60px;
+    height: 60px;
+  }
+
+  .heart-front {
+    font-size: 1.8em;
+  }
+
+  .balloons {
+    font-size: 1.5em;
+  }
 }
